@@ -1,0 +1,19 @@
+{
+    "name": "vendor_name/kir.app",
+    "description": "description",
+    "minimum-stability": "stable",
+    "license": "5",
+    "authors": [
+        {
+            "name": "comp2",
+            "email": "email@example.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": ""
+        }
+    }
+}
