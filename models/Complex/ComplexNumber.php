@@ -10,11 +10,15 @@ final class ComplexNumber implements ComplexNumberInterface
     private float $i = 0;
     private string $string;
     
-    public function __construct(string $string = '')
+    public function __construct(string|array $data = '')
     {
-        if ($string) {
-            $this->setString($string);
+        if (is_string($data) && $data) {
+            $this->setString($data);
             $this->parseString();
+        } else {
+            $this->setA($data['a']);
+            $this->setI($data['i']);
+            $this->makeString();
         }
     }
     
@@ -25,7 +29,7 @@ final class ComplexNumber implements ComplexNumberInterface
     
     public function parseString(): void
     {
-        if (preg_match_all("|([\+\-]?\d*)([\+\-]?\d*)i|", $this->string, $pices) && isset($pices[1], $pices[2], $pices[1][0], $pices[2][0])) {
+        if (preg_match_all("|([\+\-]?\d*)([\+\-]?\d*)i|", $this->string, $pices) && isset($pices[1][0], $pices[2][0])) {
             $this->setA((float)$pices[1][0]);
             $this->setI((float)$pices[2][0]);
         }

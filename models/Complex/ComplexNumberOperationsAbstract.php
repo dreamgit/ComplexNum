@@ -4,25 +4,21 @@ namespace app\models\Complex;
 
 abstract class ComplexNumberOperationsAbstract
 {
+    public const OPERATION_PLUS = 'plus';
+    public const OPERATION_MINUS = 'minus';
+    public const OPERATION_DIVISION = 'division';
+    public const OPERATION_MULTI = 'multi';
     protected array $operations = [];
     protected ComplexNumber $resultComplexNum;
     
     public function addOperation(ComplexNumber $complexNumber, string $operation = ''): self
     {
-        switch ($operation) {
-            case '-':
-                $operationCallable = '_operationMinus';
-                break;
-            case '*':
-                $operationCallable = '_operationEnlarge';
-                break;
-            case '/':
-                $operationCallable = '_operationSplit';
-                break;
-            case '+':
-            default:
-                $operationCallable = '_operationPlus';
-        }
+        $operationCallable = match ($operation) {
+            self::OPERATION_PLUS => '_operationMinus',
+            self::OPERATION_MINUS => '_operationMulti',
+            self::OPERATION_DIVISION => '_operationDivision',
+            default => '_operationPlus',
+        };
         
         if (method_exists($this, $operationCallable)) {
             $this->operations[] = [

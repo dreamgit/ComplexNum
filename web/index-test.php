@@ -12,10 +12,10 @@ require_once '../models/Complex/ComplexNumberOperationsAbstract.php';
 
 
 $operations = new ComplexNumberOperations();
-$result = $operations->addOperation(new ComplexNumber('33+23i'), '')
-    ->addOperation(new ComplexNumber('43+5i'), '-')
-    ->addOperation(new ComplexNumber('43+5i'), '-')
-    ->addOperation(new ComplexNumber('43+5i'), '*')
+$result = $operations->addOperation(new ComplexNumber('33+23i'))
+    ->addOperation(new ComplexNumber('43+5i'), ComplexNumberOperations::OPERATION_MINUS)
+    ->addOperation(new ComplexNumber('43+5i'), ComplexNumberOperations::OPERATION_PLUS)
+    ->addOperation(new ComplexNumber('43+5i'), ComplexNumberOperations::OPERATION_MULTI)
     ->calculate();
 
 echo $result;
@@ -49,24 +49,24 @@ class ComplexNumberTest extends TestCase
     
     public function testEnlarg()
     {
-        static::assertSame('560-1518i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
-            ->addOperation(new ComplexNumber('33-23i'), '*')
+        static::assertSame('560-1518i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'))
+            ->addOperation(new ComplexNumber('33-23i'), ComplexNumberOperations::OPERATION_MULTI)
             ->calculate()
             ->getString());
     }
     
     public function testPlus()
     {
-        static::assertSame('-76-18i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
-            ->addOperation(new ComplexNumber('-43-5i'), '+')
+        static::assertSame('-76-18i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'))
+            ->addOperation(new ComplexNumber('-43-5i'), ComplexNumberOperations::OPERATION_PLUS)
             ->calculate()
             ->getString());
     }
     
     public function testMinus()
     {
-        static::assertSame('-10-28i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
-            ->addOperation(new ComplexNumber('-43-5i'), '-')
+        static::assertSame('-10-28i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'))
+            ->addOperation(new ComplexNumber('-43-5i'), ComplexNumberOperations::OPERATION_MINUS)
             ->calculate()
             ->getString());
     }
