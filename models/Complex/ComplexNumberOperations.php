@@ -2,10 +2,15 @@
 
 namespace app\models\Complex;
 
-class ComplexNumberOperations implements ComplexNumberOperationsInterface
+use function array_shift;
+use function call_user_func_array;
+
+require_once '../models/Complex/ComplexNumberOperationsAbstract.php';
+
+class ComplexNumberOperations extends ComplexNumberOperationsAbstract
 {
-    private array $operations = [];
-    private ComplexNumber $resultComplexNum;
+    protected array $operations = [];
+    protected ComplexNumber $resultComplexNum;
     
     public function addOperation(ComplexNumber $complexNumber, string $operation = ''): self
     {
@@ -39,16 +44,17 @@ class ComplexNumberOperations implements ComplexNumberOperationsInterface
         }
         
         foreach ($this->operations as $operation) {
-            $this->resultComplexNum = call_user_func_array(
-                $operation['operationCallable'],
-                [$this->resultComplexNum, array_shift($this->operations)['complexNumber']]
+            $this->resultComplexNum = call_user_func_array($operation['operationCallable'], [
+                    $this->resultComplexNum,
+                    array_shift($this->operations)['complexNumber']
+                ]
             );
         }
         
         return $this->resultComplexNum;
     }
     
-    private function _operationPlus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
+    protected function _operationPlus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
     {
         $resultNum = new ComplexNumber();
         $resultNum->setA(($num1->getA() * $num2->getA()) + (-($num1->getI() * $num2->getI())));
@@ -57,7 +63,7 @@ class ComplexNumberOperations implements ComplexNumberOperationsInterface
         return $resultNum;
     }
     
-    private function _operationMinus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
+    protected function _operationMinus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
     {
         $resultNum = new ComplexNumber();
         $resultNum->setA(($num1->getA() * $num2->getA()) + (-($num1->getI() * $num2->getI())));
@@ -66,7 +72,7 @@ class ComplexNumberOperations implements ComplexNumberOperationsInterface
         return $resultNum;
     }
     
-    private function _operationEnlarge(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
+    protected function _operationEnlarge(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
     {
         $resultNum = new ComplexNumber();
         $resultNum->setA(($num1->getA() * $num2->getA()) + (-($num1->getI() * $num2->getI())));
@@ -75,7 +81,7 @@ class ComplexNumberOperations implements ComplexNumberOperationsInterface
         return $resultNum;
     }
     
-    private function _operationSplit(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
+    protected function _operationSplit(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
     {
         $resultNum = new ComplexNumber();
         $resultNum->setA(($num1->getA() * $num2->getA()) + (-($num1->getI() * $num2->getI())));
