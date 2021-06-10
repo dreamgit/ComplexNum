@@ -1,7 +1,7 @@
 {
     "name": "vendor_name/kir.app",
     "description": "description",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "license": "5",
     "authors": [
         {
@@ -10,6 +10,7 @@
         }
     ],
     "require": {
+        "phpunir/phpunit": "dev-master"
     },
     "autoload": {
         "psr-4": {

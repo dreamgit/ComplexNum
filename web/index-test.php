@@ -2,9 +2,9 @@
 
 namespace app;
 
-
 use app\models\Complex\ComplexNumber;
 use app\models\Complex\ComplexNumberOperations;
+use PHPUnit\Framework\TestCase;
 
 require_once '../models/Complex/ComplexNumber.php';
 require_once '../models/Complex/ComplexNumberOperations.php';
@@ -21,7 +21,7 @@ $result = $operations->addOperation(new ComplexNumber('33-23i'), '')
 echo $result;
 echo $result->getString();
 
-class ComplexNumberTest extends \PHPUnit\Framework\TestCase
+class ComplexNumberTest extends TestCase
 {
     public function testParse()
     {
@@ -49,6 +49,10 @@ class ComplexNumberTest extends \PHPUnit\Framework\TestCase
     
     public function testEnlarg()
     {
-        $this->assertSame('1534-824i', enlargement('33-23i', '43+5i'));
+        $this->assertSame('560-1518i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'))
+            ->addOperation(new ComplexNumber('33-23i'))
+            ->calculate()
+            ->getString()
+        );
     }
 }
