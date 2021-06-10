@@ -12,10 +12,10 @@ require_once '../models/Complex/ComplexNumberOperationsAbstract.php';
 
 
 $operations = new ComplexNumberOperations();
-$result = $operations->addOperation(new ComplexNumber('33-23i'), '')
-    ->addOperation(new ComplexNumber('43+5i'), '+')
-    ->addOperation(new ComplexNumber('43+5i'), '+')
-    ->addOperation(new ComplexNumber('43+5i'), '+')
+$result = $operations->addOperation(new ComplexNumber('33+23i'), '')
+    ->addOperation(new ComplexNumber('43+5i'), '-')
+    ->addOperation(new ComplexNumber('43+5i'), '-')
+    ->addOperation(new ComplexNumber('43+5i'), '*')
     ->calculate();
 
 echo $result;
@@ -49,8 +49,26 @@ class ComplexNumberTest extends TestCase
     
     public function testEnlarg()
     {
-        $this->assertSame('560-1518i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'))
-            ->addOperation(new ComplexNumber('33-23i'))
+        $this->assertSame('560-1518i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
+            ->addOperation(new ComplexNumber('33-23i'), '*')
+            ->calculate()
+            ->getString()
+        );
+    }
+    
+    public function testPlus()
+    {
+        $this->assertSame('-76-18i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
+            ->addOperation(new ComplexNumber('-43-5i'), '+')
+            ->calculate()
+            ->getString()
+        );
+    }
+    
+    public function testMinus()
+    {
+        $this->assertSame('-10-28i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
+            ->addOperation(new ComplexNumber('-43-5i'), '-')
             ->calculate()
             ->getString()
         );
