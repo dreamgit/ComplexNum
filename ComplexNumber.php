@@ -1,5 +1,7 @@
 <?php
 
+namespace app;
+
 final class ComplexNumber
 {
 	private float $a = 0;
@@ -68,3 +70,38 @@ function enlargement($str1, $str2):string {
 }
 
 echo enlargement('33-23i', '43+5i');
+
+
+class ComplexNumberTest extends \PHPUnit\Framework\TestCase
+{
+	public function testParse()
+	{
+		$num = new ComplexNumber('33-23i');
+		$this->assertSame(33.0, $num->getA());
+		$this->assertSame(-23.0, $num->getI());
+		
+		$num = new ComplexNumber('-23i');
+		$this->assertSame(0.0, $num->getA());
+		$this->assertSame(-23.0, $num->getI());
+	}
+	
+	public function testString()
+	{
+		$num = new ComplexNumber();
+		
+		$num->setA('33');
+		$num->setI('-23');
+		$this->assertSame('33-23i', $num->getStr());
+		
+		$num->setA('33.0');
+		$num->setI('-23.0');
+		$this->assertSame('33-23i', $num->getStr());
+		
+		
+	}
+	
+	public function testEnlarg()
+	{
+		$this->assertSame('1534-824i', enlargement('33-23i', '43+5i'));
+	}
+}
