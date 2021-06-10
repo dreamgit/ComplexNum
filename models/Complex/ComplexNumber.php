@@ -63,6 +63,6 @@ final class ComplexNumber
     
     private function makeString(): void
     {
-        $this->setString($this->getA() ?: '') . ($this->getA() && $this->getI() > 0 ? '+' : '') . ($this->getI() ? $this->getI() . 'i' : '')
+        $this->setString($this->getA() ?: '') . ($this->getA() && $this->getI() > 0 ? '+' : '') . ($this->getI() ? $this->getI() . 'i' : '');
     }
 }
