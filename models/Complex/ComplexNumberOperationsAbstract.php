@@ -41,21 +41,10 @@ abstract class ComplexNumberOperationsAbstract
         }
         
         foreach ($this->operations as $operation) {
-            $this->resultComplexNum = call_user_func_array([$this, $operation['operationCallable']], [
-                    $this->resultComplexNum,
-                    array_shift($this->operations)['complexNumber']
-                ]
-            );
+            $this->resultComplexNum =
+                call_user_func_array([$this, $operation['operationCallable']], [$this->resultComplexNum, array_shift($this->operations)['complexNumber']]);
         }
         
         return $this->resultComplexNum;
     }
-    
-    abstract protected function _operationPlus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber;
-    
-    abstract protected function _operationMinus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber;
-    
-    abstract protected function _operationEnlarge(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber;
-    
-    abstract protected function _operationSplit(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber;
 }

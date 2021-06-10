@@ -26,12 +26,12 @@ class ComplexNumberTest extends TestCase
     public function testParse()
     {
         $num = new ComplexNumber('33-23i');
-        $this->assertSame(33.0, $num->getA());
-        $this->assertSame(-23.0, $num->getI());
-        
+        static::assertSame(33.0, $num->getA());
+        static::assertSame(-23.0, $num->getI());
+    
         $num = new ComplexNumber('-23i');
-        $this->assertSame(0.0, $num->getA());
-        $this->assertSame(-23.0, $num->getI());
+        static::assertSame(0.0, $num->getA());
+        static::assertSame(-23.0, $num->getI());
     }
     
     public function testString()
@@ -40,37 +40,34 @@ class ComplexNumberTest extends TestCase
         
         $num->setA('33');
         $num->setI('-23');
-        $this->assertSame('33-23i', $num->getString());
+        static::assertSame('33-23i', $num->getString());
         
         $num->setA('33.0');
         $num->setI('-23.0');
-        $this->assertSame('33-23i', $num->getString());
+        static::assertSame('33-23i', $num->getString());
     }
     
     public function testEnlarg()
     {
-        $this->assertSame('560-1518i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
+        static::assertSame('560-1518i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
             ->addOperation(new ComplexNumber('33-23i'), '*')
             ->calculate()
-            ->getString()
-        );
+            ->getString());
     }
     
     public function testPlus()
     {
-        $this->assertSame('-76-18i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
+        static::assertSame('-76-18i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
             ->addOperation(new ComplexNumber('-43-5i'), '+')
             ->calculate()
-            ->getString()
-        );
+            ->getString());
     }
     
     public function testMinus()
     {
-        $this->assertSame('-10-28i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
+        static::assertSame('-10-28i', (new ComplexNumberOperations())->addOperation(new ComplexNumber('33-23i'), '')
             ->addOperation(new ComplexNumber('-43-5i'), '-')
             ->calculate()
-            ->getString()
-        );
+            ->getString());
     }
 }

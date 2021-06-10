@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "phpunir/phpunit": "dev-master"
+        "phpunir/phpunit": "dev-master",
+        "codeception/codeception": "5.0.x-dev"
     },
     "autoload": {
         "psr-4": {

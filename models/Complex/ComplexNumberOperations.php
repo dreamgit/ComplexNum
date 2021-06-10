@@ -6,7 +6,7 @@ require_once '../models/Complex/ComplexNumberOperationsAbstract.php';
 
 class ComplexNumberOperations extends ComplexNumberOperationsAbstract
 {
-    protected function _operationPlus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
+    public function _operationPlus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
     {
         $resultNum = new ComplexNumber();
         $resultNum->setA($num1->getA() + $num2->getA());
@@ -15,16 +15,16 @@ class ComplexNumberOperations extends ComplexNumberOperationsAbstract
         return $resultNum;
     }
     
-    protected function _operationMinus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
+    public function _operationMinus(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
     {
         $resultNum = new ComplexNumber();
         $resultNum->setA($num1->getA() - $num2->getA());
         $resultNum->setI($num1->getI() - $num2->getI());
-    
+        
         return $resultNum;
     }
     
-    protected function _operationEnlarge(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
+    public function _operationEnlarge(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
     {
         $resultNum = new ComplexNumber();
         $resultNum->setA(($num1->getA() * $num2->getA()) + -($num1->getI() * $num2->getI()));
@@ -33,7 +33,7 @@ class ComplexNumberOperations extends ComplexNumberOperationsAbstract
         return $resultNum;
     }
     
-    protected function _operationSplit(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
+    public function _operationSplit(ComplexNumber $num1, ComplexNumber $num2): ComplexNumber
     {
         //        $resultNum = new ComplexNumber();
         //        $resultNum->setA(($num1->getA() * $num2->getA()) + (-($num1->getI() * $num2->getI())));
